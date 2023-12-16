@@ -1,0 +1,23 @@
+# In This SQL project I analyzed, a customer order database with  multiple tables.
+
+1. Select the customer account numbers for all the orders that were placed in February
+SELECT DISTINCT acctnum
+FROM BIT_DB.customers cust
+INNER JOIN BIT_DB.FebSales Feb
+ON cust.order_id=Feb.orderid
+WHERE length(orderid)=6
+AND orderid<> 'Order ID';
+
+2. Which product was the cheapest one sold in January, and what was the price?
+SELECT Distinct Product,price
+FROM BIT_DB.JanSales
+ORDER BY price LIMIT 1;
+
+3. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+SELECT
+sum(Quantity),
+product,
+sum(quantity)*price as revenue
+FROM BIT_DB.FebSales
+WHERE location = '548 Lincoln St, Seattle, WA 98101'
+GROUP BY product;
